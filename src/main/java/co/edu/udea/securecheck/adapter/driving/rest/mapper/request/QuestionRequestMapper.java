@@ -1,6 +1,7 @@
 package co.edu.udea.securecheck.adapter.driving.rest.mapper.request;
 
-import co.edu.udea.securecheck.adapter.driving.rest.dto.request.QuestionRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.request.question.QuestionRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.request.question.UpdateQuestionRequest;
 import co.edu.udea.securecheck.domain.model.Company;
 import co.edu.udea.securecheck.domain.model.Control;
 import co.edu.udea.securecheck.domain.model.Question;
@@ -29,5 +30,6 @@ public interface QuestionRequestMapper {
     @Mapping(target = "control", source = "controlId")
     @Mapping(target = "company", source = "companyId")
     Question toDomain(QuestionRequest userRequest);
+    Question toDomain(UpdateQuestionRequest questionRequest);
     List<Question> toDomains(List<QuestionRequest> userRequests);
 }

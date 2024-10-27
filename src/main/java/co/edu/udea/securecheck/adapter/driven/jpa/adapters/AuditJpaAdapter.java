@@ -53,8 +53,8 @@ public class AuditJpaAdapter implements AuditPersistencePort {
 
 
     @Override
-    public Audit deleteAudit(Long auditId) {
-        return null;
+    public void deleteAudit(Long auditId) {
+        // TODO: it's needed implement this method
     }
 
 }

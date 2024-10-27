@@ -1,4 +1,4 @@
-package co.edu.udea.securecheck.adapter.driving.rest.dto.request;
+package co.edu.udea.securecheck.adapter.driving.rest.dto.request.question;
 
 import co.edu.udea.securecheck.domain.utils.Constants;
 import jakarta.validation.constraints.NotNull;

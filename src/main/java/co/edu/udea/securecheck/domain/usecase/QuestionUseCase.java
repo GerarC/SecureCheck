@@ -23,10 +23,34 @@ public class QuestionUseCase implements QuestionServicePort {
 
     @Override
     public Question save(Question question) {
+        validateCanSaveQuestion(question);
+        return customQuestionPersistencePort.save(question);
+    }
+
+    @Override
+    public Question update(Long id, Question question) {
+        Question foundQuestion = getQuestionById(id);
+        if(question.getBody() != null) foundQuestion.setBody(question.getBody());
+        return customQuestionPersistencePort.update(id, foundQuestion);
+    }
+
+    @Override
+    public Question delete(Long id) {
+        Question foundQuestion = getQuestionById(id);
+        customQuestionPersistencePort.delete(id);
+        return foundQuestion;
+    }
+
+    private void validateCanSaveQuestion(Question question) {
         if(!controlPersistencePort.existsById(question.getControl().getId()))
             throw new EntityNotFoundException(Control.class.getSimpleName(), question.getControl().getId().toString());
         if(!companyPersistencePort.existsById(question.getCompany().getId()))
             throw new EntityNotFoundException(Company.class.getSimpleName(), question.getCompany().getId());
-        return customQuestionPersistencePort.save(question);
+    }
+
+    private Question getQuestionById(Long id) {
+        Question foundQuestion = customQuestionPersistencePort.getQuestion(id);
+        if (foundQuestion == null) throw new EntityNotFoundException(Question.class.getSimpleName(), id.toString());
+        return foundQuestion;
     }
 }

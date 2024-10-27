@@ -40,6 +40,20 @@ public class CustomQuestionJpaAdapter implements CustomQuestionPersistencePort {
     }
 
     @Override
+    public Question update(Long id, Question question) {
+        CustomQuestionEntity entity = customQuestionEntityMapper.toEntity(question);
+        entity.setId(id);
+        return customQuestionEntityMapper.toDomain(
+                customQuestionRepository.save(entity)
+        );
+    }
+
+    @Override
+    public void delete(Long id) {
+        customQuestionRepository.deleteById(id);
+    }
+
+    @Override
     public List<Question> getAll() {
         return customQuestionEntityMapper.toDomains(
                 customQuestionRepository.findAll()

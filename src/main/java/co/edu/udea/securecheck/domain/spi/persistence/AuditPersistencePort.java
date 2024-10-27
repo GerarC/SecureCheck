@@ -9,5 +9,5 @@ public interface AuditPersistencePort {
     Audit createAudit(Audit audit);
     Audit getActive(String companyId);
     List<Audit> getAudits(String companyId, SortQuery sort);
-    Audit deleteAudit(Long auditId);
+    void deleteAudit(Long auditId);
 }

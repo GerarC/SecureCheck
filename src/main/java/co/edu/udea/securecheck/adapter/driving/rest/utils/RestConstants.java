@@ -44,8 +44,12 @@ public class RestConstants {
     public static final String SWAGGER_GET_COMPANY_QUESTIONS_SUMMARY = "Get company questions";
     public static final String SWAGGER_GET_COMPANY_QUESTIONS_SUCCESSFUL = "A list with found questions";
 
-    public static final String SWAGGER_CREATE_QUESTION_SUMMARY = "create a new custom question";
+    public static final String SWAGGER_CREATE_QUESTION_SUMMARY = "creates a new custom question";
     public static final String SWAGGER_CREATE_QUESTION_SUCCESSFUL = "question is created";
+    public static final String SWAGGER_DELETE_QUESTION_SUMMARY = "Deletes a question";
+    public static final String SWAGGER_DELETE_QUESTION_SUCCESSFUL = "question is deleted";
+    public static final String SWAGGER_UPDATE_QUESTION_SUMMARY = "Updates a question";
+    public static final String SWAGGER_UPDATE_QUESTION_SUCCESSFUL = "question is updated";
 
     public static final String SWAGGER_CREATE_AUDIT_SUMMARY = "create a new audit";
     public static final String SWAGGER_CREATE_AUDIT_SUCCESSFUL = "audit has been created";

@@ -1,6 +1,5 @@
 package co.edu.udea.securecheck.adapter.driving.rest.service.impl;
 
-import co.edu.udea.securecheck.adapter.driven.jpa.mapper.AuditEntityMapper;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.BasicAuditResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.mapper.response.AuditResponseMapper;
 import co.edu.udea.securecheck.adapter.driving.rest.service.AuditService;

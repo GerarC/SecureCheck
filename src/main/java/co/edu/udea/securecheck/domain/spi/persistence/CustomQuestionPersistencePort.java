@@ -9,4 +9,6 @@ public interface CustomQuestionPersistencePort {
     Question save(Question question);
     List<Question> saveAll(List<Question> questions);
     Question getQuestion(Long id);
+    Question update(Long id, Question question);
+    void delete(Long id);
 }
