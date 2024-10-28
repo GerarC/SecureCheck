@@ -1,4 +1,8 @@
 # SecureCheck
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GerarC_SecureCheck-Back&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GerarC_SecureCheck-Back)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GerarC_SecureCheck-Back&metric=bugs)](https://sonarcloud.io/summary/new_code?id=GerarC_SecureCheck-Back)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GerarC_SecureCheck-Back&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GerarC_SecureCheck-Back)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GerarC_SecureCheck-Back&metric=coverage)](https://sonarcloud.io/summary/new_code?id=GerarC_SecureCheck-Back)
 
 Backend of SecureCheck. A web that helps you to audit companies to fulfill ISO 27001
 

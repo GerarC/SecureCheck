@@ -1,7 +1,8 @@
 package co.edu.udea.securecheck.domain.api.usecase;
 
 import co.edu.udea.securecheck.domain.model.Domain;
-import co.edu.udea.securecheck.domain.spi.DomainPersistencePort;
+import co.edu.udea.securecheck.domain.spi.persistence.DomainPersistencePort;
+import co.edu.udea.securecheck.domain.usecase.DomainUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,11 +31,15 @@ class DomainUseCaseTest {
     @Test
     void getDomains() {
         List<Domain> domains = List.of(
-                new Domain(1L, "name", "description")
+                new Domain(1L, 5, "name", "description", null)
         );
         when(domainPersistencePort.getDomains()).thenReturn(domains);
         List<Domain> result = domainUseCase.getDomains();
         verify(domainPersistencePort).getDomains();
         assertEquals(domains, result);
+    }
+
+    @Test
+    void getDomainControls() {
     }
 }

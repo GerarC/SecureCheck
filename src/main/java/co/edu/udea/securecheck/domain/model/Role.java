@@ -1,16 +1,16 @@
 package co.edu.udea.securecheck.domain.model;
 
-import co.edu.udea.securecheck.domain.utils.Generated;
-import co.edu.udea.securecheck.domain.utils.RoleName;
+import co.edu.udea.securecheck.domain.utils.annotation.Generated;
+import co.edu.udea.securecheck.domain.utils.enums.RoleName;
 
 @Generated
 public class Role {
     private Long id;
     private RoleName name;
 
-    public Role(Long id, RoleName name) {
-        this.id = id;
-        this.name = name;
+    private Role(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
     }
 
     public Role() {
@@ -30,5 +30,32 @@ public class Role {
 
     public void setName(RoleName name) {
         this.name = name;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder{
+        private Long id;
+        private RoleName name;
+
+        public Builder() {
+            // Builder Class
+        }
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(RoleName name) {
+            this.name = name;
+            return this;
+        }
+
+        public Role build() {
+            return new Role(this);
+        }
     }
 }

@@ -35,10 +35,10 @@ class DomainJpaAdapterTest {
     @Test
     void getDomains() {
         List<Domain> domains = List.of(
-                new Domain(1L, "name", "description")
+                new Domain(1L, 5, "name", "description", null)
         );
         List<DomainEntity> domainEntities = List.of(
-                new DomainEntity(1L, "name", "description")
+                new DomainEntity(1L, 5, "name", "description", null)
         );
 
         when(domainEntityMapper.toDomains(domainEntities)).thenReturn(domains);
@@ -48,5 +48,13 @@ class DomainJpaAdapterTest {
         assertEquals(domains.size(), result.size());
         assertEquals(domains.get(0).getId(), result.get(0).getId());
 
+    }
+
+    @Test
+    void getDomainControls() {
+    }
+
+    @Test
+    void existsById() {
     }
 }

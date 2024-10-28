@@ -1,8 +1,9 @@
 package co.edu.udea.securecheck.domain.model;
 
-import co.edu.udea.securecheck.domain.utils.Generated;
+import co.edu.udea.securecheck.domain.utils.annotation.Generated;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Generated
 public class User {
@@ -15,17 +16,19 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    private List<Company> companies;
 
-    public User(String id, String name, String lastname, String identityDocument, LocalDateTime birthdate, String phone, String email, String password, Role role) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.identityDocument = identityDocument;
-        this.birthdate = birthdate;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    private User(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.lastname = builder.lastname;
+        this.identityDocument = builder.identityDocument;
+        this.birthdate = builder.birthdate;
+        this.phone = builder.phone;
+        this.email = builder.email;
+        this.password = builder.password;
+        this.role = builder.role;
+        this.companies = builder.companies;
     }
 
     public User() {
@@ -101,5 +104,88 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String id;
+        private String name;
+        private String lastname;
+        private String identityDocument;
+        private LocalDateTime birthdate;
+        private String phone;
+        private String email;
+        private String password;
+        private Role role;
+        private List<Company> companies;
+
+        public Builder() {
+            // Builder Class
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder lastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public Builder identityDocument(String identityDocument) {
+            this.identityDocument = identityDocument;
+            return this;
+        }
+
+        public Builder birthdate(LocalDateTime birthdate) {
+            this.birthdate = birthdate;
+            return this;
+        }
+
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public Builder companies(List<Company> companies) {
+            this.companies = companies;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }

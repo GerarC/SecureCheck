@@ -5,8 +5,9 @@ import co.edu.udea.securecheck.domain.exceptions.IdentityDocumentAlreadyExistsEx
 import co.edu.udea.securecheck.domain.exceptions.UnderageUserException;
 import co.edu.udea.securecheck.domain.model.Role;
 import co.edu.udea.securecheck.domain.model.User;
-import co.edu.udea.securecheck.domain.spi.UserPersistencePort;
-import co.edu.udea.securecheck.domain.utils.RoleName;
+import co.edu.udea.securecheck.domain.spi.persistence.UserPersistencePort;
+import co.edu.udea.securecheck.domain.usecase.UserUseCase;
+import co.edu.udea.securecheck.domain.utils.enums.RoleName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,7 +45,9 @@ class UserUseCaseTest {
                 "+573332223232",
                 "admin@admin.com",
                 "password",
-                new Role(null, RoleName.ADMIN));
+                new Role(null, RoleName.ADMIN),
+                null
+                );
 
         // Declare what happens
         when(userPersistencePort.existsByEmail(any())).thenReturn(false);
@@ -70,7 +73,9 @@ class UserUseCaseTest {
                 "+573332223232",
                 "admin@admin.com",
                 "password",
-                new Role(null, RoleName.ADMIN));
+                new Role(null, RoleName.ADMIN),
+                null
+        );
 
         // Declare what happens
         when(userPersistencePort.existsByEmail(any())).thenReturn(true);
@@ -95,7 +100,9 @@ class UserUseCaseTest {
                 "+573332223232",
                 "admin@admin.com",
                 "password",
-                new Role(null, RoleName.ADMIN));
+                new Role(null, RoleName.ADMIN),
+                null
+        );
         when(userPersistencePort.existsByEmail(any())).thenReturn(false);
         when(userPersistencePort.existsByIdentityDocument(any())).thenReturn(true);
         when(userPersistencePort.save(any())).thenReturn(user);
@@ -114,7 +121,9 @@ class UserUseCaseTest {
                 "+573332223232",
                 "admin@admin.com",
                 "password",
-                new Role(null, RoleName.ADMIN));
+                new Role(null, RoleName.ADMIN),
+                null
+        );
         when(userPersistencePort.existsByEmail(any())).thenReturn(false);
         when(userPersistencePort.existsByIdentityDocument(any())).thenReturn(true);
         when(userPersistencePort.save(any())).thenReturn(user);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -43,4 +44,6 @@ public class UserEntity {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private RoleEntity role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CompanyEntity> companies;
 }

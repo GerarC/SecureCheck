@@ -1,6 +1,6 @@
 package co.edu.udea.securecheck.adapter.driven.jpa.entity;
 
-import co.edu.udea.securecheck.domain.utils.RoleName;
+import co.edu.udea.securecheck.domain.utils.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 

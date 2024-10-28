@@ -6,7 +6,7 @@ import co.edu.udea.securecheck.adapter.driven.jpa.mapper.UserEntityMapper;
 import co.edu.udea.securecheck.adapter.driven.jpa.repository.UserRepository;
 import co.edu.udea.securecheck.domain.model.Role;
 import co.edu.udea.securecheck.domain.model.User;
-import co.edu.udea.securecheck.domain.utils.RoleName;
+import co.edu.udea.securecheck.domain.utils.enums.RoleName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -58,7 +58,9 @@ class UserJpaAdapterTest {
                 "+573332223232",
                 "admin@admin.com",
                 "password",
-                new Role(null, RoleName.ADMIN));
+                new Role(null, RoleName.ADMIN),
+                null
+        );
 
         // Define what should happen
         when(userEntityMapper.toEntity(user)).thenReturn(userEntity);
