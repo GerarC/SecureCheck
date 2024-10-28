@@ -54,6 +54,13 @@ public class CustomQuestionJpaAdapter implements CustomQuestionPersistencePort {
     }
 
     @Override
+    public List<Question> getQuestionByControlIdAndCompanyId(String companyId, Long controlId){
+        return customQuestionEntityMapper.toDomains(
+                customQuestionRepository.findAllByCompanyIdAndControlId(companyId, controlId)
+        );
+    }
+
+    @Override
     public List<Question> getAll() {
         return customQuestionEntityMapper.toDomains(
                 customQuestionRepository.findAll()

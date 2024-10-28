@@ -33,7 +33,7 @@ public class CompanyUseCase implements CompanyServicePort {
 
     @Override
     public Company createCompany(Company company) {
-        // Ensure that in that user doesn't exist the same nit nor nick
+        canCreateCompany(company);
         company.setCreatedAt(LocalDateTime.now());
         Company savedCompany = companyPersistencePort.createCompany(company);
 

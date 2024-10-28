@@ -58,6 +58,8 @@ public class Constants {
     public static final String INVALID_TOKEN_MESSAGE = "Given token is invalid";
     public static final String EXPIRED_TOKEN_MESSAGE = "Given token has expired";
     public static final String REPEATED_NIT_COMPANY_EXCEPTION = "This user already has a company with nit '%s'";
+    public static final String MAX_CONTROL_QUESTIONS_REACHED_MESSAGE = "This control already reached a max of 3 questions";
+    public static final String MIN_CONTROL_QUESTIONS_REACHED_MESSAGE = "A control must have at least one question";
 
     public static final String ENTITY_NOT_FOUND_MESSAGE = "Entity of type '%s' with id '%s' not found";
     public static final String TYPE_ATTRIBUTE_DOESNT_EXISTS_MESSAGE = "Attribute '%s' doesn't exists in '%s' type";

@@ -11,4 +11,5 @@ public interface CustomQuestionPersistencePort {
     Question getQuestion(Long id);
     Question update(Long id, Question question);
     void delete(Long id);
+    List<Question> getQuestionByControlIdAndCompanyId(String companyId, Long controlId);
 }
