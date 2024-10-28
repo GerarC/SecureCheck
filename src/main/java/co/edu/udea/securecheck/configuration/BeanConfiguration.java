@@ -94,14 +94,12 @@ public class BeanConfiguration {
             AuditPersistencePort auditPersistencePort,
             CompanyPersistencePort companyPersistencePort,
             DomainPersistencePort domainPersistencePort,
-            ControlPersistencePort controlPersistencePort,
             AnswerPersistencePort answerPersistencePort
     ) {
         return new AuditFormUseCase(
                 auditPersistencePort,
                 companyPersistencePort,
                 domainPersistencePort,
-                controlPersistencePort,
                 answerPersistencePort
         );
     }

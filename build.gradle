@@ -59,8 +59,15 @@ tasks.named('test') {
 }
 
 def jacocoExclude = [
-        "co/edu/udea/securecheck/**/model/*.class",
-        "**/configuration/*"
+        "src/**/model/**/*",
+        "src/**/adapter/**/*",
+        "src/**/configuration/**/*"
+]
+
+def sonarExclude = [
+        "src/**/model/**/*",
+        "src/**/adapter/**/*",
+        "src/**/configuration/**/*"
 ]
 
 test {
@@ -105,5 +112,6 @@ sonar {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
         property "sonar.qualitygate.wait", "true"
+        property "sonar.coverage.exclusions", sonarExclude
     }
 }
