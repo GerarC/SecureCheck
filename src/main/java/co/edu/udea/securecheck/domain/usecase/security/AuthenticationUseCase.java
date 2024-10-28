@@ -55,7 +55,10 @@ public class AuthenticationUseCase implements AuthenticationServicePort {
                     .role(user.getRole().getName())
                     .id(username)
                     .build();
-        } catch (Exception e) {
+        } catch (ExpiredTokenException e){
+            throw new ExpiredTokenException();
+        }
+        catch (Exception e) {
             throw new InvalidTokenException();
         }
     }

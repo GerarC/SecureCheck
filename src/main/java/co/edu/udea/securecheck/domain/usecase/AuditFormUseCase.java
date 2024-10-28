@@ -11,26 +11,24 @@ import co.edu.udea.securecheck.domain.spi.persistence.*;
 import co.edu.udea.securecheck.domain.utils.StreamUtils;
 import co.edu.udea.securecheck.domain.utils.filters.QuestionFilter;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class AuditFormUseCase implements AuditFormServicePort {
     private final AuditPersistencePort auditPersistencePort;
     private final CompanyPersistencePort companyPersistencePort;
     private final DomainPersistencePort domainPersistencePort;
-    private final ControlPersistencePort controlPersistencePort;
     private final AnswerPersistencePort answerPersistencePort;
 
     public AuditFormUseCase(
             AuditPersistencePort auditPersistencePort,
             CompanyPersistencePort companyPersistencePort,
             DomainPersistencePort domainPersistencePort,
-            ControlPersistencePort controlPersistencePort,
             AnswerPersistencePort answerPersistencePort
     ) {
         this.auditPersistencePort = auditPersistencePort;
         this.companyPersistencePort = companyPersistencePort;
         this.domainPersistencePort = domainPersistencePort;
-        this.controlPersistencePort = controlPersistencePort;
         this.answerPersistencePort = answerPersistencePort;
     }
 
@@ -92,7 +90,7 @@ public class AuditFormUseCase implements AuditFormServicePort {
                         .questions(questions.stream()
                                 .filter(question -> question.getControl().getId().equals(control.getId())).toList())
                         .build()
-        );
+        ).stream().sorted(Comparator.comparing(FormControl::getIndex)).toList();
 
     }
 }
