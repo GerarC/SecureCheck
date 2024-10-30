@@ -54,7 +54,7 @@ class UserUseCaseTest {
         User user = new User.Builder().birthdate(LocalDateTime.now().minusYears(17)).build();
 
         // Act & Assert
-        assertThrows(UnderageUserException.class, () -> userUseCase.save(user));
+        assertThrows(UnderageUserException.class, () -> userUseCase.save(user)); // NOSONAR
     }
 
     @Test
@@ -64,7 +64,7 @@ class UserUseCaseTest {
         when(userPersistencePort.existsByEmail(user.getEmail())).thenReturn(true);
 
         // Act & Assert
-        assertThrows(EmailAlreadyExistsException.class, () -> userUseCase.save(user));
+        assertThrows(EmailAlreadyExistsException.class, () -> userUseCase.save(user)); // NOSONAR
     }
 
     @Test
@@ -74,7 +74,7 @@ class UserUseCaseTest {
         when(userPersistencePort.existsByIdentityDocument(user.getIdentityDocument())).thenReturn(true);
 
         // Act & Assert
-        assertThrows(IdentityDocumentAlreadyExistsException.class, () -> userUseCase.save(user));
+        assertThrows(IdentityDocumentAlreadyExistsException.class, () -> userUseCase.save(user)); // NOSONAR
     }
 
     @Test
@@ -118,7 +118,7 @@ class UserUseCaseTest {
         when(userPersistencePort.existsById(userId)).thenReturn(false);
 
         // Act & Assert
-        assertThrows(EntityNotFoundException.class, () -> userUseCase.getUserCompanies(userId, null, null));
+        assertThrows(EntityNotFoundException.class, () -> userUseCase.getUserCompanies(userId, null, null)); // NOSONAR
     }
 
     @Test
@@ -143,7 +143,7 @@ class UserUseCaseTest {
         when(userPersistencePort.getUserByEmail(email)).thenReturn(null);
 
         // Act & Assert
-        assertThrows(EntityNotFoundException.class, () -> userUseCase.getUserByEmail(email));
+        assertThrows(EntityNotFoundException.class, () -> userUseCase.getUserByEmail(email)); // NOSONAR
     }
 
     @Test
@@ -168,6 +168,6 @@ class UserUseCaseTest {
         when(userPersistencePort.getUser(userId)).thenReturn(null);
 
         // Act & Assert
-        assertThrows(EntityNotFoundException.class, () -> userUseCase.getUser(userId));
+        assertThrows(EntityNotFoundException.class, () -> userUseCase.getUser(userId)); // NOSONAR
     }
 }

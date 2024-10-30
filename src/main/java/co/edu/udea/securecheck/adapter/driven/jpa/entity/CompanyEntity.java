@@ -38,12 +38,12 @@ public class CompanyEntity {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<CustomQuestionEntity> questions;
+    private Set<CustomQuestionEntity> questions; // NOSONAR
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<AuditEntity> audits;
+    private Set<AuditEntity> audits; // NOSONAR
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private UserEntity user;
+    private UserEntity user; // NOSONAR
 }

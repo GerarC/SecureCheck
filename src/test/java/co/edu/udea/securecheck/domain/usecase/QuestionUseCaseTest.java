@@ -99,7 +99,7 @@ class QuestionUseCaseTest {
         try {
             questionUseCase.update(mockQuestion.getId(), mockQuestion);
         } catch (EntityNotFoundException e) {
-            assertEquals("Entity of type 'Question' with id '1' not found", e.getMessage());
+            assertEquals("Entidad de tipo 'Question' con ID '1' no encontrada", e.getMessage());
         }
         verify(customQuestionPersistencePort, never()).update(anyLong(), any());
     }

@@ -68,7 +68,7 @@ class DomainUseCaseTest {
         // Act & Assert
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> domainUseCase.getDomainControls(domainId));
 
-        assertEquals("Entity of type 'Domain' with id '1' not found", exception.getMessage());
+        assertEquals("Entidad de tipo 'Domain' con ID '1' no encontrada", exception.getMessage());
         verify(domainPersistencePort, times(1)).existsById(domainId);
         verify(domainPersistencePort, never()).getDomainControls(domainId);
     }

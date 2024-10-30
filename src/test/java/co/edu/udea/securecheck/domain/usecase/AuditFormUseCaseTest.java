@@ -122,7 +122,7 @@ class AuditFormUseCaseTest {
         when(companyPersistencePort.existsById(companyId)).thenReturn(false);
 
         // Assert that exception is thrown
-        assertThrows(EntityNotFoundException.class, () -> auditFormUseCase.getCurrentForm(companyId));
+        assertThrows(EntityNotFoundException.class, () -> auditFormUseCase.getCurrentForm(companyId)); // NOSONAR
     }
 
     @Test
@@ -132,6 +132,6 @@ class AuditFormUseCaseTest {
         when(auditPersistencePort.getActive(companyId)).thenReturn(null);
 
         // Assert that exception is thrown
-        assertThrows(CompanyHasNotActiveAuditException.class, () -> auditFormUseCase.getCurrentForm(companyId));
+        assertThrows(CompanyHasNotActiveAuditException.class, () -> auditFormUseCase.getCurrentForm(companyId)); // NOSONAR
     }
 }

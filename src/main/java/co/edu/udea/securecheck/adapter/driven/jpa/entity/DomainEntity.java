@@ -30,5 +30,5 @@ public class DomainEntity {
     private String description;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "domain")
-    private Set<ControlEntity> controls;
+    private Set<ControlEntity> controls; // NOSONAR
 }

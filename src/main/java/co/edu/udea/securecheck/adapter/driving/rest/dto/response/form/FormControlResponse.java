@@ -1,5 +1,6 @@
 package co.edu.udea.securecheck.adapter.driving.rest.dto.response.form;
 
+import co.edu.udea.securecheck.adapter.driving.rest.dto.response.AnswerResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.QuestionResponse;
 import lombok.*;
 
@@ -16,5 +17,5 @@ public class FormControlResponse {
     private String name;
     private String description;
     private List<QuestionResponse> questions;
-    private FormAnswerResponse answer;
+    private AnswerResponse answer;
 }

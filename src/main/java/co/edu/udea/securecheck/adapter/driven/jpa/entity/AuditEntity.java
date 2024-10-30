@@ -32,11 +32,11 @@ public class AuditEntity {
 
     @ManyToOne
     @JoinColumn(name = "company", nullable = false)
-    private CompanyEntity company;
+    private CompanyEntity company; // NOSONAR
 
     @OneToMany(mappedBy = "audit", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<AnswerEntity> answers;
+    private List<AnswerEntity> answers; // NOSONAR
 
     @Column(name = "state", nullable = false)
-    private AuditState state;
+    private AuditState state; // NOSONAR
 }

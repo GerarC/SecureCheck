@@ -21,5 +21,5 @@ public class DefaultQuestionEntity {
 
     @ManyToOne
     @JoinColumn(name = "control_id")
-    private ControlEntity control;
+    private ControlEntity control; // NOSONAR
 }

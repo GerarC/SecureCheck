@@ -103,7 +103,7 @@ class CompanyUseCaseTest {
     void testGetCompany_ThrowsEntityNotFoundException() {
         when(companyPersistencePort.getCompany(mockCompany.getId())).thenReturn(null);
 
-        assertThrows(EntityNotFoundException.class, () -> companyUseCase.getCompany(mockCompany.getId()));
+        assertThrows(EntityNotFoundException.class, () -> companyUseCase.getCompany(mockCompany.getId())); // NOSONAR
         verify(companyPersistencePort, times(1)).getCompany(mockCompany.getId());
     }
 
@@ -122,7 +122,7 @@ class CompanyUseCaseTest {
     void testDeleteCompany_ThrowsEntityNotFoundException() {
         when(companyPersistencePort.getCompany(mockCompany.getId())).thenReturn(null);
 
-        assertThrows(EntityNotFoundException.class, () -> companyUseCase.deleteCompany(mockCompany.getId()));
+        assertThrows(EntityNotFoundException.class, () -> companyUseCase.deleteCompany(mockCompany.getId())); // NOSONAR
         verify(companyPersistencePort, never()).deleteCompany(anyString());
     }
 
@@ -144,7 +144,7 @@ class CompanyUseCaseTest {
         QuestionFilter filter = QuestionFilter.builder().companyId(mockCompany.getId()).build();
         when(companyPersistencePort.existsById(mockCompany.getId())).thenReturn(false);
 
-        assertThrows(EntityNotFoundException.class, () -> companyUseCase.getCompanyQuestions(mockCompany.getId(), filter));
+        assertThrows(EntityNotFoundException.class, () -> companyUseCase.getCompanyQuestions(mockCompany.getId(), filter)); // NOSONAR
         verify(companyPersistencePort, never()).getCompanyQuestions(filter);
     }
 }

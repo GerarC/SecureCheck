@@ -54,8 +54,6 @@ public class ExceptionAdvisor {
             CompanyAlreadyHasActiveAuditException.class,
             CompanyHasNotActiveAuditException.class,
             IdentityDocumentAlreadyExistsException.class,
-            InvalidTokenException.class,
-            ExpiredTokenException.class,
             EmailAlreadyExistsException.class,
             UnderageUserException.class,
     })
@@ -85,8 +83,11 @@ public class ExceptionAdvisor {
     }
 
     @ExceptionHandler(value = {
+            ExpiredTokenException.class,
+            InvalidTokenException.class,
             BadCredentialsException.class,
     })
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ExceptionResponse> handleUnauthorizedException(RuntimeException e) {
         ExceptionResponse exceptionResponse = createExceptionResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
         return ResponseEntity.status(exceptionResponse.getStatusCode()).body(exceptionResponse);

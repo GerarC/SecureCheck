@@ -63,7 +63,18 @@ public class AuthenticationController {
         return ResponseEntity.accepted().body(authenticationService.login(request));
     }
 
-    // TODO: create swagger documentation
+    @Operation(summary = RestConstants.SWAGGER_VALIDATE_TOKEN_SUMMARY)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = RestConstants.CODE_ACCEPTED,
+                    description = RestConstants.SWAGGER_VALIDATE_TOKEN_SUCCESSFUL,
+                    content = @Content(schema = @Schema(implementation = AuthenticationResponse.class))),
+            @ApiResponse(responseCode = RestConstants.CODE_UNAUTHORIZED,
+                    description = RestConstants.SWAGGER_VALIDATE_TOKEN_EXPIRED_TOKEN,
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+            @ApiResponse(responseCode = RestConstants.CODE_UNAUTHORIZED,
+                    description = RestConstants.SWAGGER_VALIDATE_TOKEN_INVALID,
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+    })
     @PostMapping("/token")
     public ResponseEntity<AuthenticationResponse> validateToken(String token){
         return ResponseEntity.accepted().body(authenticationService.validateToken(token));

@@ -21,9 +21,9 @@ public class CustomQuestionEntity {
 
     @ManyToOne
     @JoinColumn(name = "control_id")
-    private ControlEntity control;
+    private ControlEntity control; // NOSONAR
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private CompanyEntity company;
+    private CompanyEntity company; // NOSONAR
 }

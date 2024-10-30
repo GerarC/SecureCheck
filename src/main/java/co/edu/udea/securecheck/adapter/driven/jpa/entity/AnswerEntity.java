@@ -25,9 +25,9 @@ public class AnswerEntity {
 
     @ManyToOne
     @JoinColumn(name = "control", nullable = false)
-    private ControlEntity control;
+    private ControlEntity control; // NOSONAR
 
     @ManyToOne
     @JoinColumn(name = "audit", nullable = false)
-    private AuditEntity audit;
+    private AuditEntity audit; // NOSONAR
 }

@@ -90,7 +90,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AuditFormUseCase auditFormUseCase(
+    public AuditFormServicePort auditFormUseCase(
             AuditPersistencePort auditPersistencePort,
             CompanyPersistencePort companyPersistencePort,
             DomainPersistencePort domainPersistencePort,
@@ -102,6 +102,11 @@ public class BeanConfiguration {
                 domainPersistencePort,
                 answerPersistencePort
         );
+    }
+
+    @Bean
+    public AnswerServicePort answerServicePort(AnswerPersistencePort answerPersistencePort) {
+        return new AnswerUseCase(answerPersistencePort);
     }
 
     // Security

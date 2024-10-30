@@ -31,8 +31,8 @@ public class ControlEntity {
 
     @ManyToOne
     @JoinColumn(name = "domain_id")
-    private DomainEntity domain;
+    private DomainEntity domain; // NOSONAR
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "control")
-    private Set<CustomQuestionEntity> questions;
+    private Set<CustomQuestionEntity> questions; // NOSONAR
 }

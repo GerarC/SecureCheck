@@ -11,59 +11,59 @@ public class Constants {
 
     public static final Integer MAX_QUESTION_SIZE = 255;
 
-    // Registered Message
-    public static final String AUDITOR_REGISTERED_MESSAGE = "'%s %s' with '%s' email has been registered";
+    // Mensaje de registro
+    public static final String AUDITOR_REGISTERED_MESSAGE = "'%s %s' con el correo '%s' ha sido registrado";
 
-    // Empty messages
-    public static final String EMPTY_NAME_FIELD_MESSAGE = "'name' field cannot be empty";
-    public static final String EMPTY_NIT_FIELD_MESSAGE = "'nit' field cannot be empty";
-    public static final String EMPTY_LASTNAME_FIELD_MESSAGE = "'lastname' field cannot be empty";
-    public static final String EMPTY_IDENTITY_DOCUMENT_FIELD_MESSAGE = "'identityDocument' field cannot be empty";
-    public static final String EMPTY_BIRTHDATE_FIELD_MESSAGE = "'birthdate' field cannot be empty";
-    public static final String EMPTY_PHONE_FIELD_MESSAGE = "'phone' field cannot be empty";
-    public static final String EMPTY_EMAIL_FIELD_MESSAGE = "'email' field cannot be empty";
-    public static final String EMPTY_PASSWORD_FIELD_MESSAGE = "'password' field cannot be empty";
-    public static final String EMPTY_ADDRESS_FIELD_MESSAGE = "'address' field cannot be empty";
-    public static final String EMPTY_USER_ID_FIELD_MESSAGE = "'userId' field cannot be empty";
-    public static final String EMPTY_BODY_FIELD_MESSAGE = "'body' field cannot be empty";
-    public static final String EMPTY_CONTROL_ID_FIELD_MESSAGE = "'controlId' field cannot be empty";
-    public static final String EMPTY_COMPANY_ID_FIELD_MESSAGE = "'companyId' field cannot be empty";
+    // Mensajes de campos vacíos
+    public static final String EMPTY_NAME_FIELD_MESSAGE = "El campo 'nombre' no puede estar vacío";
+    public static final String EMPTY_NIT_FIELD_MESSAGE = "El campo 'NIT' no puede estar vacío";
+    public static final String EMPTY_LASTNAME_FIELD_MESSAGE = "El campo 'apellido' no puede estar vacío";
+    public static final String EMPTY_IDENTITY_DOCUMENT_FIELD_MESSAGE = "El campo 'documento de identidad' no puede estar vacío";
+    public static final String EMPTY_BIRTHDATE_FIELD_MESSAGE = "El campo 'fecha de nacimiento' no puede estar vacío";
+    public static final String EMPTY_PHONE_FIELD_MESSAGE = "El campo 'teléfono' no puede estar vacío";
+    public static final String EMPTY_EMAIL_FIELD_MESSAGE = "El campo 'correo electrónico' no puede estar vacío";
+    public static final String EMPTY_PASSWORD_FIELD_MESSAGE = "El campo 'contraseña' no puede estar vacío";
+    public static final String EMPTY_ADDRESS_FIELD_MESSAGE = "El campo 'dirección' no puede estar vacío";
+    public static final String EMPTY_USER_ID_FIELD_MESSAGE = "El campo 'ID de usuario' no puede estar vacío";
+    public static final String EMPTY_BODY_FIELD_MESSAGE = "El campo 'cuerpo' no puede estar vacío";
+    public static final String EMPTY_CONTROL_ID_FIELD_MESSAGE = "El campo 'ID de control' no puede estar vacío";
+    public static final String EMPTY_COMPANY_ID_FIELD_MESSAGE = "El campo 'ID de compañía' no puede estar vacío";
 
-
-    // Regex
+    // Expresiones regulares
     public static final String EMAIL_REGEX_RFC5322 = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
             + "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     public static final String PHONE_NUMBER_REGEX = "^(\\+\\d{2})?\\d{10}$";
     public static final String IDENTITY_DOCUMENT_REGEX = "^\\d{6,16}";
 
-    // Out of bound messages
-    public static final String PHONE_OUT_OF_BOUNDS_MESSAGE = "'phone' number must be between 10 and 14 chars";
-    public static final String EMAIL_OUT_OF_BOUNDS_MESSAGE = "'email' must be between 7 and 255 chars";
-    public static final String PASSWORD_OUT_OF_BOUNDS_MESSAGE = "'password' must be between 8 and 16 chars";
-    public static final String IDENTITY_DOCUMENT_OUT_OF_BOUNDS_MESSAGE = "'identityDocument' must be between 6 and 15 chars";
+    // Mensajes de límites
+    public static final String PHONE_OUT_OF_BOUNDS_MESSAGE = "El número de 'teléfono' debe tener entre 10 y 14 caracteres";
+    public static final String EMAIL_OUT_OF_BOUNDS_MESSAGE = "El 'correo electrónico' debe tener entre 7 y 255 caracteres";
+    public static final String PASSWORD_OUT_OF_BOUNDS_MESSAGE = "La 'contraseña' debe tener entre 8 y 16 caracteres";
+    public static final String IDENTITY_DOCUMENT_OUT_OF_BOUNDS_MESSAGE = "El 'documento de identidad' debe tener entre 6 y 15 caracteres";
 
-    // Not valid format message
-    public static final String NOT_VALID_EMAIL_MESSAGE = "invalid email";
-    public static final String NOT_VALID_PHONE_NUMBER_MESSAGE = "invalid phone number";
-    public static final String NOT_NUMERIC_IDENTITY_DOCUMENT_MESSAGE = "Identity document must be numerical only";
+    // Mensajes de formato no válido
+    public static final String NOT_VALID_EMAIL_MESSAGE = "Correo electrónico no válido";
+    public static final String NOT_VALID_PHONE_NUMBER_MESSAGE = "Número de teléfono no válido";
+    public static final String NOT_NUMERIC_IDENTITY_DOCUMENT_MESSAGE = "El documento de identidad debe ser numérico";
 
-    public static final String FUTURE_BIRTH_DATE_MESSAGE = "'birthdate' field cannot be a future date";
+    // Mensaje de fecha de nacimiento
+    public static final String FUTURE_BIRTH_DATE_MESSAGE = "El campo 'fecha de nacimiento' no puede ser una fecha futura";
 
-    // Exception message
-    public static final String EMAIL_ALREADY_EXISTS_MESSAGE = "A user with email '%s' already exists";
-    public static final String IDENTITY_DOCUMENT_ALREADY_REGISTERED_MESSAGE = "A user with document with number '%s' is already registered";
-    public static final String UNDERAGE_USER_MESSAGE = "User born '%tF' is underage";
-    public static final String COMPANY_ALREADY_HAS_ACTIVE_AUDIT_MESSAGE = "Company with id '%s' already has an active audit";
-    public static final String COMPANY_HAS_NOT_ACTIVE_AUDIT_MESSAGE = "Company %s has not active audit";
-    public static final String INVALID_TOKEN_MESSAGE = "Given token is invalid";
-    public static final String EXPIRED_TOKEN_MESSAGE = "Given token has expired";
-    public static final String REPEATED_NIT_COMPANY_EXCEPTION = "This user already has a company with nit '%s'";
-    public static final String MAX_CONTROL_QUESTIONS_REACHED_MESSAGE = "This control already reached a max of 3 questions";
-    public static final String MIN_CONTROL_QUESTIONS_REACHED_MESSAGE = "A control must have at least one question";
+    // Mensajes de excepción
+    public static final String EMAIL_ALREADY_EXISTS_MESSAGE = "Ya existe un usuario con el correo electrónico '%s'";
+    public static final String IDENTITY_DOCUMENT_ALREADY_REGISTERED_MESSAGE = "Ya existe un usuario con el número de documento '%s'";
+    public static final String UNDERAGE_USER_MESSAGE = "El usuario nacido el '%tF' es menor de edad";
+    public static final String COMPANY_ALREADY_HAS_ACTIVE_AUDIT_MESSAGE = "La compañía con ID '%s' ya tiene una auditoría activa";
+    public static final String COMPANY_HAS_NOT_ACTIVE_AUDIT_MESSAGE = "La compañía %s no tiene una auditoría activa";
+    public static final String INVALID_TOKEN_MESSAGE = "El token proporcionado es inválido";
+    public static final String EXPIRED_TOKEN_MESSAGE = "El token proporcionado ha expirado";
+    public static final String REPEATED_NIT_COMPANY_EXCEPTION = "Este usuario ya tiene una empresa con NIT '%s'";
+    public static final String MAX_CONTROL_QUESTIONS_REACHED_MESSAGE = "Este control ya alcanzó el máximo de 3 preguntas";
+    public static final String MIN_CONTROL_QUESTIONS_REACHED_MESSAGE = "Un control debe tener al menos una pregunta";
 
-    public static final String ENTITY_NOT_FOUND_MESSAGE = "Entity of type '%s' with id '%s' not found";
-    public static final String TYPE_ATTRIBUTE_DOESNT_EXISTS_MESSAGE = "Attribute '%s' doesn't exists in '%s' type";
-    public static final String USER_WITH_EMAIL_NOT_FOUND_MESSAGE = "'User' with email '%s' not found";
+    public static final String ENTITY_NOT_FOUND_MESSAGE = "Entidad de tipo '%s' con ID '%s' no encontrada";
+    public static final String TYPE_ATTRIBUTE_DOESNT_EXISTS_MESSAGE = "El atributo '%s' no existe en el tipo '%s'";
+    public static final String USER_WITH_EMAIL_NOT_FOUND_MESSAGE = "Usuario con el correo '%s' no encontrado";
 
     public static final Integer DEFAULT_PAGE_NUMBER = 0;
     public static final Integer DEFAULT_PAGE_SIZE = 10;

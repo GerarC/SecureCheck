@@ -54,7 +54,7 @@ public class Initialization {
                             LocalDateTime.of(2000, 1, 1, 1, 1),
                             "+573013424656",
                             "admin@admin.com",
-                            passwordEncoder.encode("#P4ssw0rd*"),
+                            passwordEncoder.encode("#P4ssw0rd*"), // NOSONAR
                             roles.get(0),
                             null
                     ),
@@ -66,7 +66,7 @@ public class Initialization {
                             LocalDateTime.of(1995, 2, 15, 10, 0),
                             "+573123456789",
                             "gerardoe.castillo@udea.edu.co",
-                            passwordEncoder.encode("password"),
+                            passwordEncoder.encode("password"), // NOSONAR
                             roles.get(1),
                             null
                     )

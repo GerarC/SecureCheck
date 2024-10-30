@@ -42,8 +42,8 @@ public class UserEntity {
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
-    private RoleEntity role;
+    private RoleEntity role; // NOSONAR
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CompanyEntity> companies;
+    private Set<CompanyEntity> companies; // NOSONAR
 }

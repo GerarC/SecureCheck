@@ -1,4 +1,4 @@
-package co.edu.udea.securecheck.adapter.driving.rest.dto.response.form;
+package co.edu.udea.securecheck.adapter.driving.rest.dto.request;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class FormAnswerResponse {
+public class AnswerUpdateRequest {
     private Long id;
     private boolean done;
     private String comment;
