@@ -1,9 +1,8 @@
-package co.edu.udea.securecheck.domain.utils;
+package co.edu.udea.securecheck.domain.usecase;
 import co.edu.udea.securecheck.domain.exceptions.CompanyAlreadyHasActiveAuditException;
 import co.edu.udea.securecheck.domain.exceptions.EntityNotFoundException;
 import co.edu.udea.securecheck.domain.model.*;
 import co.edu.udea.securecheck.domain.spi.persistence.*;
-import co.edu.udea.securecheck.domain.usecase.AuditUseCase;
 import co.edu.udea.securecheck.domain.utils.enums.AuditState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,7 +51,7 @@ class AuditUseCaseTest {
         when(companyPersistencePort.existsById(companyId)).thenReturn(true);
         when(auditPersistencePort.getActive(companyId)).thenReturn(null); // No active audit
         when(controlPersistencePort.getAllControls()).thenReturn(List.of(control));
-        when(auditPersistencePort.createAudit(any(Audit.class))).thenReturn(expectedAudit);
+        when(auditPersistencePort.saveAudit(any(Audit.class))).thenReturn(expectedAudit);
 
         // Act
         Audit audit = auditUseCase.createAudit(companyId);
@@ -84,19 +83,4 @@ class AuditUseCaseTest {
         assertThrows(EntityNotFoundException.class, () -> auditUseCase.createAudit(companyId));
     }
 
-    @Test
-    void getAudits_ShouldReturnAuditList() {
-        // Arrange
-        String companyId = "123";
-        SortQuery sortQuery = new SortQuery("startedAt", true);
-        Audit audit = Audit.builder().company(Company.builder().id(companyId).build()).build();
-        when(auditPersistencePort.getAudits(any(), any())).thenReturn(List.of(audit));
-
-        // Act
-        List<Audit> audits = auditUseCase.getAudits(companyId, sortQuery);
-
-        // Assert
-        assertNotNull(audits);
-        assertEquals(0, audits.size());
-    }
 }

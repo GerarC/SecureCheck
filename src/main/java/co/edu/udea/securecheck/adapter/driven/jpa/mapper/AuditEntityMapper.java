@@ -3,9 +3,11 @@ package co.edu.udea.securecheck.adapter.driven.jpa.mapper;
 import co.edu.udea.securecheck.adapter.driven.jpa.entity.AnswerEntity;
 import co.edu.udea.securecheck.adapter.driven.jpa.entity.AuditEntity;
 import co.edu.udea.securecheck.adapter.driven.jpa.entity.ControlEntity;
+import co.edu.udea.securecheck.adapter.driven.jpa.entity.CompanyEntity;
 import co.edu.udea.securecheck.domain.model.Answer;
 import co.edu.udea.securecheck.domain.model.Audit;
 import co.edu.udea.securecheck.domain.model.Control;
+import co.edu.udea.securecheck.domain.model.Company;
 import co.edu.udea.securecheck.domain.utils.annotation.Generated;
 import org.mapstruct.*;
 
@@ -19,12 +21,16 @@ public interface AuditEntityMapper {
     @Mapping(target = "company", ignore = true)
     @Mapping(target = "answers", ignore = true)
     @Mapping(target = "endedAt", ignore = true)
-    @Mapping(target = "comment", ignore = true)
     @Named("basicAuditDomain")
     Audit toBasicDomain(AuditEntity auditEntity);
 
-    @Mapping(target = "company", ignore = true)
     Audit toDomain(AuditEntity audit);
+
+    default Company company(CompanyEntity entity) {
+        return Company.builder()
+            .id(entity.getId())
+            .build();
+    }
 
     List<Audit> toDomains(List<AuditEntity> auditEntities);
 
@@ -40,7 +46,7 @@ public interface AuditEntityMapper {
                         .name(control.getName())
                         .description(control.getDescription())
                         .build())
-                .done(answerEntity.isDone())
+                .outcome(answerEntity.getOutcome())
                 .comment(answerEntity.getComment())
                 .build();
     }

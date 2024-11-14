@@ -1,7 +1,9 @@
 package co.edu.udea.securecheck.domain.spi.persistence;
 
+import co.edu.udea.securecheck.domain.model.Audit;
 import co.edu.udea.securecheck.domain.model.Company;
 import co.edu.udea.securecheck.domain.model.Question;
+import co.edu.udea.securecheck.domain.utils.SortQuery;
 import co.edu.udea.securecheck.domain.utils.filters.QuestionFilter;
 
 import java.util.List;
@@ -13,4 +15,5 @@ public interface CompanyPersistencePort {
     boolean existsByNitAndUser(String nit, String userId);
     void deleteCompany(String id);
     List<Question> getCompanyQuestions(QuestionFilter filter);
+    List<Audit> getCompanyAudits(String companyId, SortQuery sort);
 }

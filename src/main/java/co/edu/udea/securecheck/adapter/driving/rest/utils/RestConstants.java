@@ -66,7 +66,7 @@ public class RestConstants {
     public static final String SWAGGER_CREATE_AUDIT_COMPANY_NOT_FOUND = "required company hasn't been found";
     public static final String SWAGGER_CREATE_AUDIT_COMPANY_ALREADY_HAS_AN_ACTIVE_ONE = "company already has an active audit";
 
-    // AuditForm
+    // AuditReportResponse
     public static final String SWAGGER_GET_AUDIT_FORM_SUMMARY = "Get and Audit in form format";
     public static final String SWAGGER_GET_AUDIT_FORM_SUCCESSFUL = "Audit form has been created";
     public static final String SWAGGER_GET_AUDIT_FORM_NOT_ACTIVE_AUDIT = "Company has not active audit";

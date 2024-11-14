@@ -1,4 +1,4 @@
-package co.edu.udea.securecheck.adapter.driving.rest.dto.request;
+package co.edu.udea.securecheck.adapter.driving.rest.dto.request.audit;
 
 import lombok.*;
 
@@ -7,6 +7,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class AuditRequest {
+public class AuditPostRequest {
     private String companyId;
 }

@@ -53,7 +53,7 @@ public class Constants {
     public static final String EMAIL_ALREADY_EXISTS_MESSAGE = "Ya existe un usuario con el correo electrónico '%s'";
     public static final String IDENTITY_DOCUMENT_ALREADY_REGISTERED_MESSAGE = "Ya existe un usuario con el número de documento '%s'";
     public static final String UNDERAGE_USER_MESSAGE = "El usuario nacido el '%tF' es menor de edad";
-    public static final String COMPANY_ALREADY_HAS_ACTIVE_AUDIT_MESSAGE = "La compañía con ID '%s' ya tiene una auditoría activa";
+    public static final String COMPANY_ALREADY_HAS_ACTIVE_AUDIT_MESSAGE = "La compañía '%s' ya tiene una auditoría activa";
     public static final String COMPANY_HAS_NOT_ACTIVE_AUDIT_MESSAGE = "La compañía %s no tiene una auditoría activa";
     public static final String INVALID_TOKEN_MESSAGE = "El token proporcionado es inválido";
     public static final String EXPIRED_TOKEN_MESSAGE = "El token proporcionado ha expirado";

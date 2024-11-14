@@ -9,6 +9,8 @@ public class AuditForm {
     private Long id;
     private LocalDateTime startedAt;
     private String comment;
+    private String objective;
+    private String scope;
     private AuditState state;
     private List<FormDomain> domains;
 
@@ -16,6 +18,8 @@ public class AuditForm {
         this.id = builder.id;
         this.startedAt = builder.startedAt;
         this.comment = builder.comment;
+        this.objective = builder.objective;
+        this.scope = builder.scope;
         this.state = builder.state;
         this.domains = builder.domains;
     }
@@ -26,6 +30,22 @@ public class AuditForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getObjective() {
+        return objective;
+    }
+
+    public void setObjective(String objective) {
+        this.objective = objective;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 
     public LocalDateTime getStartedAt() {
@@ -67,13 +87,11 @@ public class AuditForm {
     public static class Builder {
         private  Long id;
         private LocalDateTime startedAt;
+        private String objective;
+        private String scope;
         private String comment;
         private AuditState state;
         private List<FormDomain> domains;
-
-        public Builder() {
-            // Builder class
-        }
 
         public Builder id(Long id) {
             this.id = id;
@@ -87,6 +105,16 @@ public class AuditForm {
 
         public Builder comment(String comment) {
             this.comment = comment;
+            return this;
+        }
+
+        public Builder objective(String objective) {
+            this.objective = objective;
+            return this;
+        }
+
+        public Builder scope(String scope) {
+            this.scope = scope;
             return this;
         }
 

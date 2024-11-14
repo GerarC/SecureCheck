@@ -109,6 +109,23 @@ public class BeanConfiguration {
         return new AnswerUseCase(answerPersistencePort);
     }
 
+    @Bean
+    public ReportServicePort reportServicePort(
+            AuditPersistencePort auditPersistencePort,
+            DomainPersistencePort domainPersistencePort,
+            AnswerPersistencePort answerPersistencePort,
+            CompanyPersistencePort companyPersistencePort,
+            UserPersistencePort userPersistencePort
+    ) {
+        return new ReportUseCase(
+                auditPersistencePort,
+                domainPersistencePort,
+                answerPersistencePort,
+                companyPersistencePort,
+                userPersistencePort
+        );
+    }
+
     // Security
     @Bean
     UserDetailsService userDetailsService(UserServicePort userServicePort) {

@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static co.edu.udea.securecheck.domain.utils.validation.ValidationUtils.validateOrThrow;
+
 public class UserUseCase implements UserServicePort {
     private final UserPersistencePort userPersistencePort;
 
@@ -38,30 +40,39 @@ public class UserUseCase implements UserServicePort {
 
     @Override
     public List<Company> getUserCompanies(String id, SortQuery sort, CompanyFilter filter) {
-        if(!userPersistencePort.existsById(id)) throw  new EntityNotFoundException(User.class.getSimpleName(), id);
+        validateOrThrow(userPersistencePort.existsById(id),
+                new EntityNotFoundException(User.class.getSimpleName(), id)
+        );
         return userPersistencePort.getUserCompanies(id, sort, filter);
     }
 
     @Override
     public User getUserByEmail(String email) {
         User user = userPersistencePort.getUserByEmail(email);
-        if (user == null) throw new EntityNotFoundException(String.format(Constants.USER_WITH_EMAIL_NOT_FOUND_MESSAGE, email));
+        validateOrThrow(user != null,
+                new EntityNotFoundException(String.format(Constants.USER_WITH_EMAIL_NOT_FOUND_MESSAGE, email))
+        );
         return user;
     }
 
     @Override
     public User getUser(String id) {
         User user = userPersistencePort.getUser(id);
-        if (user == null) throw new EntityNotFoundException(User.class.getSimpleName(), id);
+        validateOrThrow(user != null,
+                new EntityNotFoundException(User.class.getSimpleName(), id)
+        );
         return user;
     }
 
     private void validateUser(User user) {
-        if (user.getBirthdate().until(LocalDateTime.now(), ChronoUnit.YEARS) < 18)
-            throw new UnderageUserException(user.getBirthdate());
-        if (userPersistencePort.existsByEmail(user.getEmail()))
-            throw new EmailAlreadyExistsException(user.getEmail());
-        if (userPersistencePort.existsByIdentityDocument(user.getIdentityDocument()))
-            throw new IdentityDocumentAlreadyExistsException(user.getIdentityDocument());
+        validateOrThrow(user.getBirthdate().until(LocalDateTime.now(), ChronoUnit.YEARS) >= 18,
+                new UnderageUserException(user.getBirthdate())
+        );
+        validateOrThrow(!userPersistencePort.existsByEmail(user.getEmail()),
+                new EmailAlreadyExistsException(user.getEmail())
+        );
+        validateOrThrow(!userPersistencePort.existsByIdentityDocument(user.getIdentityDocument()),
+                new IdentityDocumentAlreadyExistsException(user.getIdentityDocument())
+        );
     }
 }

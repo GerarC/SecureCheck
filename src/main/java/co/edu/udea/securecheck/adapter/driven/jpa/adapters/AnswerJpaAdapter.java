@@ -17,8 +17,10 @@ public class AnswerJpaAdapter implements AnswerPersistencePort {
     private final AnswerEntityMapper answerEntityMapper;
 
     @Override
-    public boolean existsById(Long id) {
-        return answerRepository.existsById(id);
+    public List<Answer> getAnswersById(List<Long> ids) {
+        return answerEntityMapper.toDomains(
+                answerRepository.findAllByIds(ids)
+        );
     }
 
     @Override

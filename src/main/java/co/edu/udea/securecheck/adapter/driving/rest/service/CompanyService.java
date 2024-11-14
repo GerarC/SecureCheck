@@ -1,7 +1,9 @@
 package co.edu.udea.securecheck.adapter.driving.rest.service;
 
 import co.edu.udea.securecheck.adapter.driving.rest.dto.request.CompanyRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.request.SortQueryRequest;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.request.filter.CompanyQuestionFilterRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.response.AuditResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.CompanyResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.QuestionResponse;
 
@@ -12,4 +14,5 @@ public interface CompanyService {
     CompanyResponse getCompany(String companyId);
     CompanyResponse deleteCompany(String companyId);
     List<QuestionResponse> getCompanyQuestions(String companyId, CompanyQuestionFilterRequest filterRequest);
+    List<AuditResponse> getCompanyAudits(String companyId, SortQueryRequest sortQuery);
 }

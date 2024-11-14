@@ -27,6 +27,12 @@ public class AuditEntity {
     @Column(name = "ended_at")
     private LocalDateTime endedAt;
 
+    @Column(name = "objective")
+    private String objective;
+
+    @Column(name = "scope")
+    private String scope;
+
     @Column(name = "comment")
     private String comment;
 
@@ -34,7 +40,7 @@ public class AuditEntity {
     @JoinColumn(name = "company", nullable = false)
     private CompanyEntity company; // NOSONAR
 
-    @OneToMany(mappedBy = "audit", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "audit", orphanRemoval = true)
     private List<AnswerEntity> answers; // NOSONAR
 
     @Column(name = "state", nullable = false)

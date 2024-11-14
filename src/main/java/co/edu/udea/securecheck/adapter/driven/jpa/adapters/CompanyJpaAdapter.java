@@ -2,20 +2,28 @@ package co.edu.udea.securecheck.adapter.driven.jpa.adapters;
 
 import co.edu.udea.securecheck.adapter.driven.jpa.entity.CompanyEntity;
 import co.edu.udea.securecheck.adapter.driven.jpa.entity.CustomQuestionEntity;
+import co.edu.udea.securecheck.adapter.driven.jpa.mapper.AuditEntityMapper;
 import co.edu.udea.securecheck.adapter.driven.jpa.mapper.CompanyEntityMapper;
 import co.edu.udea.securecheck.adapter.driven.jpa.mapper.CustomQuestionEntityMapper;
+import co.edu.udea.securecheck.adapter.driven.jpa.mapper.SortJPAMapper;
 import co.edu.udea.securecheck.adapter.driven.jpa.repository.AnswerRepository;
 import co.edu.udea.securecheck.adapter.driven.jpa.repository.AuditRepository;
 import co.edu.udea.securecheck.adapter.driven.jpa.repository.CompanyRepository;
 import co.edu.udea.securecheck.adapter.driven.jpa.repository.CustomQuestionRepository;
 import co.edu.udea.securecheck.adapter.driven.jpa.specification.QuestionSpecification;
+import co.edu.udea.securecheck.domain.exceptions.TypeAttributeDoesntExistsException;
+import co.edu.udea.securecheck.domain.model.Audit;
 import co.edu.udea.securecheck.domain.model.Company;
 import co.edu.udea.securecheck.domain.model.Question;
 import co.edu.udea.securecheck.domain.spi.persistence.CompanyPersistencePort;
+import co.edu.udea.securecheck.domain.utils.SortQuery;
+import co.edu.udea.securecheck.domain.utils.enums.AuditState;
 import co.edu.udea.securecheck.domain.utils.filters.QuestionFilter;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,10 +33,13 @@ import java.util.List;
 public class CompanyJpaAdapter implements CompanyPersistencePort {
     private final CompanyRepository companyRepository;
     private final CustomQuestionRepository customQuestionRepository;
-    private final CompanyEntityMapper companyEntityMapper;
-    private final CustomQuestionEntityMapper customQuestionEntityMapper;
     private final AuditRepository auditRepository;
     private final AnswerRepository answerRepository;
+    private final AuditEntityMapper auditEntityMapper;
+    private final CompanyEntityMapper companyEntityMapper;
+    private final CustomQuestionEntityMapper customQuestionEntityMapper;
+    private final SortJPAMapper sortJPAMapper;
+
 
     @Override
     @Transactional
@@ -74,5 +85,18 @@ public class CompanyJpaAdapter implements CompanyPersistencePort {
         return customQuestionEntityMapper.toDomainWithoutExtraData(
                 customQuestionEntities
         );
+    }
+
+    @Override
+    public List<Audit> getCompanyAudits(String companyId, SortQuery sortQuery) {
+        Sort sort = sortQuery != null ? sortJPAMapper.toJPA(sortQuery).createSort() : Sort.unsorted();
+        try {
+            return auditEntityMapper.toDomains(
+                    auditRepository.findAllByCompanyIdAndState(companyId, AuditState.FINALIZED, sort)
+            );
+        } catch (PropertyReferenceException e) {
+            String column = sortQuery == null ? "" : sortQuery.getSortBy();
+            throw new TypeAttributeDoesntExistsException(column, Audit.class.getSimpleName());
+        }
     }
 }

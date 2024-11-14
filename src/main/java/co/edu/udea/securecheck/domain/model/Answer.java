@@ -1,15 +1,17 @@
 package co.edu.udea.securecheck.domain.model;
 
+import co.edu.udea.securecheck.domain.utils.enums.ControlOutcome;
+
 public class Answer {
     private Long id;
-    private boolean done;
+    private ControlOutcome outcome;
     private String comment;
     private Control control;
     private Audit audit;
 
     private Answer(Builder builder) {
         this.id = builder.id;
-        this.done = builder.done;
+        this.outcome = builder.outcome;
         this.comment = builder.comment;
         this.control = builder.control;
         this.audit = builder.audit;
@@ -23,12 +25,12 @@ public class Answer {
         this.id = id;
     }
 
-    public boolean isDone() {
-        return done;
+    public ControlOutcome getOutcome() {
+        return outcome;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setOutcome(ControlOutcome outcome) {
+        this.outcome = outcome;
     }
 
     public String getComment() {
@@ -61,7 +63,7 @@ public class Answer {
 
     public static class Builder {
         private Long id;
-        private boolean done;
+        private ControlOutcome outcome;
         private String comment;
         private Control control;
         private Audit audit;
@@ -71,8 +73,8 @@ public class Answer {
             return this;
         }
 
-        public Builder done(boolean done) {
-            this.done = done;
+        public Builder outcome(ControlOutcome done) {
+            this.outcome = done;
             return this;
         }
 

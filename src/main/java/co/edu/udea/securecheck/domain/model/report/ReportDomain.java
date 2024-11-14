@@ -1,25 +1,24 @@
-package co.edu.udea.securecheck.domain.model.form;
+package co.edu.udea.securecheck.domain.model.report;
 
-import co.edu.udea.securecheck.domain.model.Answer;
-import co.edu.udea.securecheck.domain.model.Question;
+import co.edu.udea.securecheck.domain.model.AnsweredControl;
 
 import java.util.List;
 
-public class FormControl {
+public class ReportDomain {
     private Long id;
     private Integer index;
     private String name;
     private String description;
-    private List<Question> questions;
-    private Answer answer;
+    private ControlStatistic domainStatistic;
+    private List<AnsweredControl> controls;
 
-    private FormControl(Builder builder) {
+    private ReportDomain(Builder builder) {
         this.id = builder.id;
         this.index = builder.index;
         this.name = builder.name;
         this.description = builder.description;
-        this.questions = builder.questions;
-        this.answer = builder.answer;
+        this.domainStatistic = builder.domainStatistic;
+        this.controls = builder.controls;
     }
 
     public Long getId() {
@@ -54,20 +53,20 @@ public class FormControl {
         this.description = description;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public ControlStatistic getDomainStatistic() {
+        return domainStatistic;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public void setDomainStatistic(ControlStatistic domainStatistic) {
+        this.domainStatistic = domainStatistic;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public List<AnsweredControl> getControls() {
+        return controls;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setControls(List<AnsweredControl> controls) {
+        this.controls = controls;
     }
 
     public static Builder builder() {
@@ -79,8 +78,8 @@ public class FormControl {
         private Integer index;
         private String name;
         private String description;
-        private List<Question> questions;
-        private Answer answer;
+        private ControlStatistic domainStatistic;
+        private List<AnsweredControl> controls;
 
         public Builder id(Long id) {
             this.id = id;
@@ -102,18 +101,18 @@ public class FormControl {
             return this;
         }
 
-        public Builder questions(List<Question> questions) {
-            this.questions = questions;
+        public Builder domainStatistic(ControlStatistic domainStatistic) {
+            this.domainStatistic = domainStatistic;
             return this;
         }
 
-        public Builder answer(Answer answer) {
-            this.answer = answer;
+        public Builder controls(List<AnsweredControl> controls) {
+            this.controls = controls;
             return this;
         }
 
-        public FormControl build() {
-            return new FormControl(this);
+        public ReportDomain build() {
+            return new ReportDomain(this);
         }
     }
 }

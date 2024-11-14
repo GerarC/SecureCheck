@@ -2,6 +2,7 @@ package co.edu.udea.securecheck.domain.usecase;
 
 import co.edu.udea.securecheck.domain.api.CompanyServicePort;
 import co.edu.udea.securecheck.domain.exceptions.EntityNotFoundException;
+import co.edu.udea.securecheck.domain.model.Audit;
 import co.edu.udea.securecheck.domain.model.Company;
 import co.edu.udea.securecheck.domain.model.Question;
 import co.edu.udea.securecheck.domain.model.User;
@@ -9,11 +10,14 @@ import co.edu.udea.securecheck.domain.spi.persistence.CompanyPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.CustomQuestionPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.DefaultQuestionPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.UserPersistencePort;
+import co.edu.udea.securecheck.domain.utils.SortQuery;
 import co.edu.udea.securecheck.domain.utils.StreamUtils;
 import co.edu.udea.securecheck.domain.utils.filters.QuestionFilter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static co.edu.udea.securecheck.domain.utils.validation.ValidationUtils.validateOrThrow;
 
 public class CompanyUseCase implements CompanyServicePort {
     private final CompanyPersistencePort companyPersistencePort;
@@ -33,7 +37,7 @@ public class CompanyUseCase implements CompanyServicePort {
 
     @Override
     public Company createCompany(Company company) {
-        canCreateCompany(company);
+        validateCanCreateCompany(company);
         company.setCreatedAt(LocalDateTime.now());
         Company savedCompany = companyPersistencePort.createCompany(company);
 
@@ -60,9 +64,18 @@ public class CompanyUseCase implements CompanyServicePort {
     @Override
     public List<Question> getCompanyQuestions(String companyId, QuestionFilter filter) {
         filter.setCompanyId(companyId);
-        if (!companyPersistencePort.existsById(companyId))
-            throw new EntityNotFoundException(Company.class.getSimpleName(), companyId);
+        validateOrThrow(companyPersistencePort.existsById(companyId),
+                new EntityNotFoundException(Company.class.getSimpleName(), companyId)
+        );
         return companyPersistencePort.getCompanyQuestions(filter);
+    }
+
+    @Override
+    public List<Audit> getCompanyAudits(String companyId, SortQuery sort) {
+        validateOrThrow(companyPersistencePort.existsById(companyId),
+                new EntityNotFoundException(Company.class.getSimpleName(), companyId)
+        );
+        return companyPersistencePort.getCompanyAudits(companyId, sort);
     }
 
     private List<Question> createDefaultQuestions(Company company) {
@@ -76,9 +89,10 @@ public class CompanyUseCase implements CompanyServicePort {
         });
     }
 
-    private void canCreateCompany(Company company) {
-        if (!userPersistencePort.existsById(company.getUser().getId()))
-            throw new EntityNotFoundException(User.class.getSimpleName(), company.getUser().getId());
+    private void validateCanCreateCompany(Company company) {
+        validateOrThrow(userPersistencePort.existsById(company.getUser().getId()),
+                new EntityNotFoundException(User.class.getSimpleName(), company.getUser().getId())
+        );
     }
 
 }

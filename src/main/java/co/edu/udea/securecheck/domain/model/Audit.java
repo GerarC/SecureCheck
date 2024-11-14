@@ -9,6 +9,8 @@ public class Audit {
     private Long id;
     private LocalDateTime startedAt;
     private LocalDateTime endedAt;
+    private String objective;
+    private String scope;
     private String comment;
     private Company company;
     private List<Answer> answers;
@@ -19,6 +21,8 @@ public class Audit {
         this.startedAt = builder.startedAt;
         this.endedAt = builder.endedAt;
         this.comment = builder.comment;
+        this.objective = builder.objective;
+        this.scope = builder.scope;
         this.company = builder.company;
         this.answers = builder.answers;
         this.state = builder.state;
@@ -42,6 +46,22 @@ public class Audit {
 
     public LocalDateTime getEndedAt() {
         return endedAt;
+    }
+
+    public String getObjective() {
+        return objective;
+    }
+
+    public void setObjective(String objective) {
+        this.objective = objective;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 
     public void setEndedAt(LocalDateTime endedAt) {
@@ -88,6 +108,8 @@ public class Audit {
         private Long id;
         private LocalDateTime startedAt;
         private LocalDateTime endedAt;
+        private String objective;
+        private String scope;
         private String comment;
         private Company company;
         private List<Answer> answers;
@@ -95,6 +117,16 @@ public class Audit {
 
         public Builder id(Long id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder objective(String objective) {
+            this.objective = objective;
+            return this;
+        }
+
+        public Builder scope(String scope) {
+            this.scope = scope;
             return this;
         }
 

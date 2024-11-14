@@ -1,6 +1,6 @@
 package co.edu.udea.securecheck.adapter.driving.rest.controller.v1;
 
-import co.edu.udea.securecheck.adapter.driving.rest.dto.request.AuditRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.request.audit.AuditPostRequest;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.form.AuditFormResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.service.FormService;
 import co.edu.udea.securecheck.adapter.driving.rest.utils.RestConstants;
@@ -36,7 +36,7 @@ public class FormController {
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
     })
     @GetMapping
-    public ResponseEntity<AuditFormResponse> getForm(@NotNull AuditRequest request) {
+    public ResponseEntity<AuditFormResponse> getForm(@NotNull AuditPostRequest request) {
         return ResponseEntity.ok().body(
                 formService.getAuditForm(request.getCompanyId())
         );

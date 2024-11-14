@@ -15,6 +15,8 @@ public class AuditFormResponse {
     private Long id;
     private LocalDateTime startedAt;
     private String comment;
+    private String objective;
+    private String scope;
     private AuditState state;
     private List<FormDomainResponse> domains;
 }

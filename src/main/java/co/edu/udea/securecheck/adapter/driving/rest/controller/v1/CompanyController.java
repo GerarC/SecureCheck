@@ -1,7 +1,9 @@
 package co.edu.udea.securecheck.adapter.driving.rest.controller.v1;
 
 import co.edu.udea.securecheck.adapter.driving.rest.dto.request.CompanyRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.request.SortQueryRequest;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.request.filter.CompanyQuestionFilterRequest;
+import co.edu.udea.securecheck.adapter.driving.rest.dto.response.AuditResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.CompanyResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.dto.response.QuestionResponse;
 import co.edu.udea.securecheck.adapter.driving.rest.service.CompanyService;
@@ -101,6 +103,21 @@ public class CompanyController {
     ) {
         return ResponseEntity.ok(
                 companyService.getCompanyQuestions(id, filterRequest)
+        );
+    }
+
+    // TODO: Swagger documentation
+    @GetMapping("/{id}/audits")
+    public ResponseEntity<List<AuditResponse>> getCompanyAudits(
+            @PathVariable String id,
+            @Parameter(name = "audit sorting",
+                    in = ParameterIn.QUERY,
+                    schema = @Schema(implementation = SortQueryRequest.class),
+                    style = ParameterStyle.FORM)
+            @Nullable SortQueryRequest sortRequest
+    ) {
+        return ResponseEntity.ok(
+                companyService.getCompanyAudits(id, sortRequest)
         );
     }
 }

@@ -11,12 +11,14 @@ import co.edu.udea.securecheck.domain.spi.persistence.AnswerPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.AuditPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.CompanyPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.ControlPersistencePort;
-import co.edu.udea.securecheck.domain.utils.SortQuery;
 import co.edu.udea.securecheck.domain.utils.StreamUtils;
 import co.edu.udea.securecheck.domain.utils.enums.AuditState;
+import co.edu.udea.securecheck.domain.utils.enums.ControlOutcome;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static co.edu.udea.securecheck.domain.utils.validation.ValidationUtils.validateOrThrow;
 
 public class AuditUseCase implements AuditServicePort {
     private final AuditPersistencePort auditPersistencePort;
@@ -48,12 +50,12 @@ public class AuditUseCase implements AuditServicePort {
                 .state(AuditState.ACTIVE)
                 .build();
 
-        Audit audit = auditPersistencePort.createAudit(newAudit);
+        Audit audit = auditPersistencePort.saveAudit(newAudit);
         List<Answer> answers = StreamUtils.map(controls,
                 control -> Answer.builder()
                         .audit(audit)
                         .control(control)
-                        .done(false)
+                        .outcome(ControlOutcome.NOT_APPLICABLE)
                         .build()
         );
 
@@ -62,19 +64,46 @@ public class AuditUseCase implements AuditServicePort {
     }
 
     @Override
-    public List<Audit> getAudits(String companyId, SortQuery sort) {
-        return List.of();
+    public Audit deleteAudit(Long auditId) {
+        Audit audit = getAudit(auditId);
+        auditPersistencePort.deleteAudit(auditId);
+        return audit;
     }
 
     @Override
-    public Audit deleteAudit(Long auditId) {
-        return null;
+    public Audit updateAudit(Long id, Audit audit) {
+        Audit foundAudit = getAudit(id);
+
+        if (audit.getComment() != null) foundAudit.setComment(audit.getComment());
+        if (audit.getScope() != null) foundAudit.setScope(audit.getScope());
+        if (audit.getObjective() != null) foundAudit.setObjective(audit.getObjective());
+
+        return auditPersistencePort.saveAudit(foundAudit);
+    }
+
+    @Override
+    public Audit setAsFinished(Long auditId) {
+        Audit foundAudit = getAudit(auditId);
+        foundAudit.setState(AuditState.FINALIZED);
+        foundAudit.setEndedAt(LocalDateTime.now());
+        return auditPersistencePort.saveAudit(foundAudit);
     }
 
     private void validateCanCreateNewAudit(String companyId) {
-        if (!companyPersistencePort.existsById(companyId))
-            throw new EntityNotFoundException(Company.class.getSimpleName(), companyId);
-        else if (auditPersistencePort.getActive(companyId) != null)
-            throw new CompanyAlreadyHasActiveAuditException(companyId);
+        validateOrThrow(companyPersistencePort.existsById(companyId),
+                new EntityNotFoundException(Company.class.getSimpleName(), companyId)
+        );
+        // TODO: It seems that it creates various Active Audits - Verify this
+        validateOrThrow(auditPersistencePort.getActive(companyId) == null,
+                new CompanyAlreadyHasActiveAuditException(companyId)
+        );
     }
+
+    private Audit getAudit(Long auditId) {
+        Audit audit = auditPersistencePort.getAudit(auditId);
+        validateOrThrow(audit != null,
+                new EntityNotFoundException(Audit.class.getSimpleName(), auditId.toString()));
+        return audit;
+    }
+
 }

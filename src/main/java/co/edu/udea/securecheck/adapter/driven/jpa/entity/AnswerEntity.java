@@ -1,6 +1,7 @@
 package co.edu.udea.securecheck.adapter.driven.jpa.entity;
 
 
+import co.edu.udea.securecheck.domain.utils.enums.ControlOutcome;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +18,9 @@ public class AnswerEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "done", nullable = false)
-    private boolean done;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "outcome", nullable = false)
+    private ControlOutcome outcome;
 
     @Column(name = "comment")
     private String comment;

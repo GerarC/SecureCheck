@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface AuditRepository extends JpaRepository<AuditEntity, Long> {
-    List<AuditEntity> findAllByCompanyId(String companyId, Sort sort);
+    List<AuditEntity> findAllByCompanyIdAndState(String companyId, AuditState state, Sort sort);
     Optional<AuditEntity> findFirstByCompanyIdAndState(String companyId, AuditState state);
 }

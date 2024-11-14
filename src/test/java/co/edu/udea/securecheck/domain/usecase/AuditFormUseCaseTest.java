@@ -4,10 +4,11 @@ import co.edu.udea.securecheck.domain.exceptions.CompanyHasNotActiveAuditExcepti
 import co.edu.udea.securecheck.domain.exceptions.EntityNotFoundException;
 import co.edu.udea.securecheck.domain.model.*;
 import co.edu.udea.securecheck.domain.model.form.AuditForm;
-import co.edu.udea.securecheck.domain.model.form.FormControl;
+import co.edu.udea.securecheck.domain.model.AnsweredControl;
 import co.edu.udea.securecheck.domain.model.form.FormDomain;
 import co.edu.udea.securecheck.domain.spi.persistence.*;
 import co.edu.udea.securecheck.domain.utils.enums.AuditState;
+import co.edu.udea.securecheck.domain.utils.enums.ControlOutcome;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -80,7 +81,7 @@ class AuditFormUseCaseTest {
 
         testAnswer = Answer.builder()
                 .id(1L)
-                .done(false)
+                .outcome(ControlOutcome.NONCONFORMING)
                 .control(testControl)
                 .audit(activeAudit)
                 .build();
@@ -109,7 +110,7 @@ class AuditFormUseCaseTest {
         assertEquals(testDomain.getName(), resultDomain.getName());
         assertEquals(1, resultDomain.getControls().size());
 
-        FormControl resultControl = resultDomain.getControls().get(0);
+        AnsweredControl resultControl = resultDomain.getControls().get(0);
         assertEquals(testControl.getId(), resultControl.getId());
         assertEquals(testControl.getName(), resultControl.getName());
         assertEquals(testAnswer, resultControl.getAnswer());

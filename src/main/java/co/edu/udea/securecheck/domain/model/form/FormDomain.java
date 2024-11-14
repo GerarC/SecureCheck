@@ -1,6 +1,8 @@
 package co.edu.udea.securecheck.domain.model.form;
 
 
+import co.edu.udea.securecheck.domain.model.AnsweredControl;
+
 import java.util.List;
 
 public class FormDomain {
@@ -8,7 +10,7 @@ public class FormDomain {
     private Integer index;
     private String name;
     private String description;
-    private List<FormControl> controls;
+    private List<AnsweredControl> controls;
 
     private FormDomain(Builder builder) {
         this.id = builder.id;
@@ -50,11 +52,11 @@ public class FormDomain {
         this.description = description;
     }
 
-    public List<FormControl> getControls() {
+    public List<AnsweredControl> getControls() {
         return controls;
     }
 
-    public void setControls(List<FormControl> controls) {
+    public void setControls(List<AnsweredControl> controls) {
         this.controls = controls;
     }
 
@@ -67,7 +69,7 @@ public class FormDomain {
         private Integer index;
         private String name;
         private String description;
-        private List<FormControl> controls;
+        private List<AnsweredControl> controls;
 
         public Builder id(Long id) {
             this.id = id;
@@ -89,7 +91,7 @@ public class FormDomain {
             return this;
         }
 
-        public Builder controls(List<FormControl> controls) {
+        public Builder controls(List<AnsweredControl> controls) {
             this.controls = controls;
             return this;
         }

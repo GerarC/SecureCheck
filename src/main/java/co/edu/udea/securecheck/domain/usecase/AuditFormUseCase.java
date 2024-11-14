@@ -5,14 +5,14 @@ import co.edu.udea.securecheck.domain.exceptions.CompanyHasNotActiveAuditExcepti
 import co.edu.udea.securecheck.domain.exceptions.EntityNotFoundException;
 import co.edu.udea.securecheck.domain.model.*;
 import co.edu.udea.securecheck.domain.model.form.AuditForm;
-import co.edu.udea.securecheck.domain.model.form.FormControl;
 import co.edu.udea.securecheck.domain.model.form.FormDomain;
 import co.edu.udea.securecheck.domain.spi.persistence.*;
-import co.edu.udea.securecheck.domain.utils.StreamUtils;
 import co.edu.udea.securecheck.domain.utils.filters.QuestionFilter;
 
-import java.util.Comparator;
 import java.util.List;
+
+import static co.edu.udea.securecheck.domain.utils.ControlUtils.mapAnsweredControl;
+import static co.edu.udea.securecheck.domain.utils.validation.ValidationUtils.validateOrThrow;
 
 public class AuditFormUseCase implements AuditFormServicePort {
     private final AuditPersistencePort auditPersistencePort;
@@ -45,8 +45,8 @@ public class AuditFormUseCase implements AuditFormServicePort {
                         .name(domain.getName())
                         .description(domain.getDescription())
                         .index(domain.getIndex())
-                        .controls(mapFormControl(
-                                domain.getControls().stream().toList(),
+                        .controls(mapAnsweredControl(
+                                domain.getControls(),
                                 questions,
                                 answers))
                         .build()).toList();
@@ -56,15 +56,19 @@ public class AuditFormUseCase implements AuditFormServicePort {
                 .startedAt(audit.getStartedAt())
                 .state(audit.getState())
                 .comment(audit.getComment())
+                .objective(audit.getObjective())
+                .scope(audit.getScope())
                 .domains(formDomains)
                 .build();
     }
 
     private void validateCanGetForm(String companyId) {
-        if (!companyPersistencePort.existsById(companyId))
-            throw new EntityNotFoundException(Company.class.getSimpleName(), companyId);
-        else if (auditPersistencePort.getActive(companyId) == null)
-            throw new CompanyHasNotActiveAuditException(companyId);
+        validateOrThrow(companyPersistencePort.existsById(companyId),
+                new EntityNotFoundException(Company.class.getSimpleName(), companyId)
+        );
+        validateOrThrow(auditPersistencePort.getActive(companyId) != null,
+                new CompanyHasNotActiveAuditException(companyId)
+        );
     }
 
     private List<Question> getQuestions(String companyId) {
@@ -74,23 +78,4 @@ public class AuditFormUseCase implements AuditFormServicePort {
         return companyPersistencePort.getCompanyQuestions(filter);
     }
 
-    private List<FormControl> mapFormControl(List<Control> controls, List<Question> questions, List<Answer> answers) {
-        return StreamUtils.map(controls,
-                control -> FormControl.builder()
-                        .id(control.getId())
-                        .answer(StreamUtils.findAny(
-                                answers,
-                                answer -> answer.getControl().getId().equals(control.getId()),
-                                new EntityNotFoundException(
-                                        Question.class.getSimpleName(),
-                                        control.getId().toString())))
-                        .description(control.getDescription())
-                        .name(control.getName())
-                        .index(control.getIndex())
-                        .questions(questions.stream()
-                                .filter(question -> question.getControl().getId().equals(control.getId())).toList())
-                        .build()
-        ).stream().sorted(Comparator.comparing(FormControl::getIndex)).toList();
-
-    }
 }

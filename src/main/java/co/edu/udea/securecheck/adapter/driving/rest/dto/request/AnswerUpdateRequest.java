@@ -1,5 +1,6 @@
 package co.edu.udea.securecheck.adapter.driving.rest.dto.request;
 
+import co.edu.udea.securecheck.domain.utils.enums.ControlOutcome;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,6 +10,6 @@ import lombok.*;
 @Builder
 public class AnswerUpdateRequest {
     private Long id;
-    private boolean done;
+    private ControlOutcome outcome;
     private String comment;
 }

@@ -8,6 +8,8 @@ import co.edu.udea.securecheck.domain.spi.persistence.DomainPersistencePort;
 
 import java.util.List;
 
+import static co.edu.udea.securecheck.domain.utils.validation.ValidationUtils.validateOrThrow;
+
 public class DomainUseCase implements DomainServicePort {
     private final DomainPersistencePort domainPersistencePort;
 
@@ -22,7 +24,9 @@ public class DomainUseCase implements DomainServicePort {
 
     @Override
     public List<Control> getDomainControls(Long id) {
-        if(!domainPersistencePort.existsById(id)) throw new EntityNotFoundException(Domain.class.getSimpleName(), id.toString());
+        validateOrThrow(domainPersistencePort.existsById(id),
+                new EntityNotFoundException(Domain.class.getSimpleName(), id.toString())
+        );
         return domainPersistencePort.getDomainControls(id);
     }
 }

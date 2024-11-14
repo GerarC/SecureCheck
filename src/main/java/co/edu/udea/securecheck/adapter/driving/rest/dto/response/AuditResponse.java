@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 public class AuditResponse {
     private Long id;
     private LocalDateTime startedAt;
+    private LocalDateTime endedAt;
     private String comment;
+    private String objective;
+    private String scope;
     private AuditState state;
 }

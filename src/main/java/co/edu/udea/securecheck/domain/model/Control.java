@@ -4,7 +4,6 @@ import co.edu.udea.securecheck.domain.utils.annotation.Generated;
 
 import java.util.List;
 
-@Generated
 public class Control {
     private Long id;
     private Integer index;

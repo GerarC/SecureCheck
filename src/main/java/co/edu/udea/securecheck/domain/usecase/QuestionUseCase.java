@@ -11,13 +11,19 @@ import co.edu.udea.securecheck.domain.spi.persistence.CompanyPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.ControlPersistencePort;
 import co.edu.udea.securecheck.domain.spi.persistence.CustomQuestionPersistencePort;
 
+import static co.edu.udea.securecheck.domain.utils.validation.ValidationUtils.validateOrThrow;
+
 public class QuestionUseCase implements QuestionServicePort {
 
     private final CustomQuestionPersistencePort customQuestionPersistencePort;
     private final ControlPersistencePort controlPersistencePort;
     private final CompanyPersistencePort companyPersistencePort;
 
-    public QuestionUseCase(CustomQuestionPersistencePort customQuestionPersistencePort, ControlPersistencePort controlPersistencePort, CompanyPersistencePort companyPersistencePort) {
+    public QuestionUseCase(
+            CustomQuestionPersistencePort customQuestionPersistencePort,
+            ControlPersistencePort controlPersistencePort,
+            CompanyPersistencePort companyPersistencePort
+    ) {
         this.customQuestionPersistencePort = customQuestionPersistencePort;
         this.controlPersistencePort = controlPersistencePort;
         this.companyPersistencePort = companyPersistencePort;
@@ -45,28 +51,33 @@ public class QuestionUseCase implements QuestionServicePort {
     }
 
     private void validateCanSaveQuestion(Question question) {
-        if (!controlPersistencePort.existsById(question.getControl().getId()))
-            throw new EntityNotFoundException(Control.class.getSimpleName(), question.getControl().getId().toString());
-        if (!companyPersistencePort.existsById(question.getCompany().getId()))
-            throw new EntityNotFoundException(Company.class.getSimpleName(), question.getCompany().getId());
-        if (customQuestionPersistencePort
-                .getQuestionByControlIdAndCompanyId(
+        validateOrThrow(controlPersistencePort.existsById(question.getControl().getId()),
+                new EntityNotFoundException(Control.class.getSimpleName(), question.getControl().getId().toString())
+        );
+        validateOrThrow(companyPersistencePort.existsById(question.getCompany().getId()),
+                new EntityNotFoundException(Company.class.getSimpleName(), question.getCompany().getId())
+        );
+        validateOrThrow(customQuestionPersistencePort.getQuestionByControlIdAndCompanyId(
                         question.getCompany().getId(),
-                        question.getControl().getId()).size() >= 3)
-            throw new MaxQuestionReachedException();
+                        question.getControl().getId()
+                ).size() < 3,
+                new MaxQuestionReachedException()
+        );
     }
 
     private void validateCanDeleteQuestion(Question question) {
-        if (customQuestionPersistencePort
-                .getQuestionByControlIdAndCompanyId(
+        validateOrThrow(customQuestionPersistencePort.getQuestionByControlIdAndCompanyId(
                         question.getCompany().getId(),
-                        question.getControl().getId()).size() < 2)
-            throw new MinQuestionReachedException();
+                        question.getControl().getId()).size() > 1,
+                new MinQuestionReachedException()
+        );
     }
 
     private Question getQuestionById(Long id) {
         Question foundQuestion = customQuestionPersistencePort.getQuestion(id);
-        if (foundQuestion == null) throw new EntityNotFoundException(Question.class.getSimpleName(), id.toString());
+        validateOrThrow(foundQuestion != null,
+                new EntityNotFoundException(Question.class.getSimpleName(), id.toString())
+        );
         return foundQuestion;
     }
 }
